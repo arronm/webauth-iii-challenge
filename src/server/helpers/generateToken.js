@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const secret = require('../config/jwt-secret');
+
 const generateToken = user => {
   const payload = {
     subject: user.id,
@@ -9,8 +11,6 @@ const generateToken = user => {
   const options = {
     expiresIn: '8h',
   };
-
-  const secret = 'purple unicorn rainbow farts';
 
   return jwt.sign(payload, secret, options);
 }
