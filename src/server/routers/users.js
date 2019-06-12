@@ -6,12 +6,13 @@ const errorRef = require('../helpers/errorRef');
 
 const router = express.Router();
 
-router.get('/', auth, (req, res) => {
-  db.find()
-    .then(users => {
-      res.json(users);
-    })
-    .catch(error => res.status(500).send(errorRef(error)));
-});
+router.get('/', auth, async (req, res) => {
+  try {
+    const users = await db.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json(errorRef(error));
+  }
+})
 
 module.exports = router;
