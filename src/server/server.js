@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 4444;
 
-// const students = require('./routers/students');
+const auth = require('./routers/auth');
 // const cohorts = require('./routers/cohorts');
 
 const middleware = [
@@ -22,7 +22,7 @@ server.get('/', (req, res) => {
   });
 });
 
-// server.use('/api/students', students);
+server.use('/api/auth', auth);
 // server.use('/api/cohorts', cohorts);
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
