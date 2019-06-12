@@ -11,14 +11,14 @@ router.post('/register', validateBody({
     type: 'string',
     require: true,
   },
+  department: {
+    type: 'string',
+    require: true,
+  },
   password: {
     type: 'string',
     require: true,
   },
-  department: {
-    type: 'string',
-    require: true,
-  }
 }), (req, res) => {
   let user = req.body;
 

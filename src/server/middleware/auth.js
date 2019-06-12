@@ -14,18 +14,13 @@ const auth = (req, res, next) => {
         message: "Invalid Credentials",
       });
 
+      req.department = decoded.department;
+
       next();
     })
   } catch (error) {
     res.status(500).json(errorRef(error));
   }
-  // if (req.session && req.session.username) {
-  //   next();
-  // } else {
-  //   res.status(401).json({
-  //     message: 'Invalid Credentials',
-  //   });
-  // }
 }
 
 module.exports = auth;

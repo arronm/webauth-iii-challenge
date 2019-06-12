@@ -6,6 +6,7 @@ const generateToken = user => {
   const payload = {
     subject: user.id,
     username: user.username,
+    department: user.department,
   };
 
   const options = {

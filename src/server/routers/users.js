@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.get('/', auth, async (req, res) => {
   try {
-    const users = await db.find();
+    const users = await db.findBy({
+      department: req.department,
+    });
     res.json(users);
   } catch (error) {
     res.status(500).json(errorRef(error));
