@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 const AuthForm = (props) => {
   const [state, setState] = useState({
@@ -7,9 +8,11 @@ const AuthForm = (props) => {
     password: '',
   });
 
+  const { method } = props.match.params;
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // handle login versus register
+    props.handleSubmit(method, state);
   };
 
   const handleOnChange = (event) => {
@@ -22,11 +25,26 @@ const AuthForm = (props) => {
 
   return (
     <>
+      {
+        (method !== 'login' || method !== 'register') && <Redirect to='/auth/login' />
+      }
+      {
+        props.loggedIn && <Redirect to='/users' />
+      }
       <form onSubmit={handleSubmit}>
-        <input name="username" onChange={handleOnChange} value={state.username} type="text"/>
-        <input name="department" onChange={handleOnChange} value={state.department} type="text"/>
-        <input name="password" onChange={handleOnChange} value={state.password} type="password"/>
-        <input type="submit"/>
+        <input id='username' name="username" onChange={handleOnChange} value={state.username} type="text"/>
+        {
+          method === 'register'
+            && <input
+              id='department'
+              name="department"
+              onChange={handleOnChange}
+              value={state.department}
+              type="text"
+            />
+        }
+        <input id='password' name="password" onChange={handleOnChange} value={state.password} type="password"/>
+        <input type="submit" value={ method === 'login' ? 'Login' : 'Register' } />
       </form>
     </>
   );

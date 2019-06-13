@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { getAuth } from '../helpers/auth';
+import { getAuth } from './helpers/auth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (getAuth()) {
           return <Component {...rest} {...props} />;
         } else {
-          return <Redirect to="/login" />;
+          return <Redirect to="/auth/login" />;
         }
       }}
     />
