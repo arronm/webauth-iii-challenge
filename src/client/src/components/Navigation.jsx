@@ -15,10 +15,11 @@ const Navigation = (props) => {
           : <Link to='/auth/login'>Login</Link>
       }
       {
-        !props.loggedIn && <Link to='/auth/register'>&nbsp;|&nbsp;Register</Link>
+        !props.loggedIn && <Link to='/auth/register'>Register</Link>
       }
-      &nbsp;|&nbsp;
-      <Link to='/users'>Users</Link>
+      {
+        props.loggedIn && <Link to='/users'>Users</Link>
+      }
     </div>
   );
 }
