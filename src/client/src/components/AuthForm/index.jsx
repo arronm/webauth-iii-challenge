@@ -35,7 +35,7 @@ const AuthForm = (props) => {
         props.loggedIn && <Redirect to='/users' />
       }
       <form onSubmit={handleSubmit} className={style.AuthForm}>
-        <h4>Test</h4>
+        <h4>{ method === 'login' ? 'Login' : 'Register' }</h4>
         <input id='username' name="username" onChange={handleOnChange} value={state.username} type="text" placeholder='Username'/>
         {
           method === 'register'
