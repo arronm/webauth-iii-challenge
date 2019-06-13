@@ -30,11 +30,19 @@ const App = () => {
   }, [loggedIn]);
 
   const getUsers = async () => {
-    const { data: users} = await axiosWithAuth().get(`http://localhost:4444/api/users`);
-    setState(state => ({
-      ...state,
-      users,
-    }));
+    try {
+      const { data: users} = await axiosWithAuth().get(`http://localhost:4444/api/users`);
+      setState(state => ({
+        ...state,
+        users,
+      }));
+    } catch ({ response }) {
+      auth.remove();
+      setState(state => ({
+        ...state,
+        loggedIn: false,
+      }));
+    }
   };
 
   const handleSubmit = async (method, credentials) => {
