@@ -1,11 +1,12 @@
 import React from 'react';
 
 const Users = (props) => {
+  console.log(props);
   return (
     <>
-      <h1>Users</h1>
+      <h1>Users in your department</h1>
       {
-        props.users.map(user => <span key={user.id}>{user.name}</span>)
+        props.users.map(user => <div key={user.id}>{user.username}</div>)
       }
     </>
   );

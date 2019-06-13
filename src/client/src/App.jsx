@@ -7,27 +7,35 @@ import Navigation from './components/Navigation';
 import PrivateRoute from './PrivateRoute';
 import AuthForm from './components/AuthForm';
 import auth from './helpers/auth';
-
-const Test = () => {
-  return (
-    <>
-      <h1>Hello! (Protected Route)</h1>
-    </>
-  )
-}
+import axiosWithAuth from './helpers/axiosWithAuth';
+import Users from './components/Users';
 
 const App = () => {
-  console.log(auth.get());
   const [state, setState] = useState({
     loggedIn: !!auth.get() || false,
+    users: [],
   });
 
+  const { loggedIn } = state;
+
   useEffect(() => {
-    // setState(state => ({
-    //   ...state,
-    //   loggedIn: false,
-    // }));
-  }, []);
+    loggedIn && getUsers();
+
+    return () => {
+      setState(state => ({
+        ...state,
+        users: [],
+      }))
+    };
+  }, [loggedIn]);
+
+  const getUsers = async () => {
+    const { data: users} = await axiosWithAuth().get(`http://localhost:4444/api/users`);
+    setState(state => ({
+      ...state,
+      users,
+    }));
+  };
 
   const handleSubmit = async (method, credentials) => {
     try {
@@ -62,7 +70,7 @@ const App = () => {
             <AuthForm {...routerProps} handleSubmit={handleSubmit} loggedIn={state.loggedIn} />
         )}
       />
-      <PrivateRoute path="/users" component={Test} />
+      <PrivateRoute path="/users" component={Users} users={state.users} />
     </>
   );
 }
