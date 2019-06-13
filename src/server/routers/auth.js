@@ -34,7 +34,7 @@ router.post('/register', validateBody({
   }
 });
 
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
   try {
     let { username, password } = req.body;
     const user = await db.findBy({ username }).first();
@@ -53,14 +53,5 @@ router.post('/login', async(req, res) => {
     res.status(500).json(errorRef(error));
   }
 });
-
-// router.delete('/logout', (req, res) => {
-//   if (req.session && req.session.username) {
-//     req.session.destroy();
-//   }
-//   res.json({
-//     message: 'You have been logged out.',
-//   });
-// });
 
 module.exports = router;
