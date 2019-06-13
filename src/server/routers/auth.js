@@ -28,7 +28,13 @@ router.post('/register', validateBody({
       ...user,
       password: hash,
     });
-    res.status(201).json(saved);
+
+    const token = generateToken(user);
+
+    res.status(201).json({
+      message: `Registered ${saved.username}`,
+      token,
+    });
   } catch (error) {
     res.status(500).json(errorRef(error))
   }
