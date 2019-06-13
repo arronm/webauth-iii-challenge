@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import style from './AuthForm.module.scss';
+
 const AuthForm = (props) => {
   const [state, setState] = useState({
     username: '',
@@ -8,10 +10,11 @@ const AuthForm = (props) => {
     password: '',
   });
 
-  const { method } = props.match.params;
+  let { method } = props.match.params;
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    method = !(method === 'login' || method === 'register') ? 'login' : method;
     props.handleSubmit(method, state);
   };
 
@@ -24,15 +27,16 @@ const AuthForm = (props) => {
   };
 
   return (
-    <>
+    <div className={style.AuthForm_Container}>
       {
         (method !== 'login' || method !== 'register') && <Redirect to='/auth/login' />
       }
       {
         props.loggedIn && <Redirect to='/users' />
       }
-      <form onSubmit={handleSubmit}>
-        <input id='username' name="username" onChange={handleOnChange} value={state.username} type="text"/>
+      <form onSubmit={handleSubmit} className={style.AuthForm}>
+        <h4>Test</h4>
+        <input id='username' name="username" onChange={handleOnChange} value={state.username} type="text" placeholder='Username'/>
         {
           method === 'register'
             && <input
@@ -40,13 +44,14 @@ const AuthForm = (props) => {
               name="department"
               onChange={handleOnChange}
               value={state.department}
+              placeholder='Department'
               type="text"
             />
         }
-        <input id='password' name="password" onChange={handleOnChange} value={state.password} type="password"/>
+        <input id='password' name="password" onChange={handleOnChange} value={state.password} type="password" placeholder='Password'/>
         <input type="submit" value={ method === 'login' ? 'Login' : 'Register' } />
       </form>
-    </>
+    </div>
   );
 }
  

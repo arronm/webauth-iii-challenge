@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import style from './Navigation.module.scss';
+
 const Navigation = (props) => {
   const handleLogout = (event) => {
     event.preventDefault();
@@ -8,7 +10,7 @@ const Navigation = (props) => {
   };
 
   return (
-    <div className="Navigation">
+    <div className={style.Navigation}>
       {
         props.loggedIn
           ? <Link to='/auth/login' onClick={handleLogout}>Logout</Link>
