@@ -27,7 +27,7 @@ const AuthForm = (props) => {
   };
 
   return (
-    <div className={style.AuthForm_Container}>
+    <div className={style.AuthForm_container}>
       {
         (method !== 'login' || method !== 'register') && <Redirect to='/auth/login' />
       }

@@ -1,4 +1,4 @@
-.AuthForm_Container {
+.AuthForm_container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +25,10 @@
 
     &[type="submit"] {
       cursor: pointer;
+
+      &:hover {
+        background: darken(#fcfcfc, .8);
+      }
     }
   }
 }

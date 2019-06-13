@@ -10,7 +10,8 @@ const Navigation = (props) => {
   };
 
   return (
-    <div className={style.Navigation}>
+    <div className={style.Navigation_container}>
+      <div className={style.Navigation}>
       {
         props.loggedIn
           ? <Link to='/auth/login' onClick={handleLogout}>Logout</Link>
@@ -22,6 +23,7 @@ const Navigation = (props) => {
       {
         props.loggedIn && <Link to='/users'>Users</Link>
       }
+    </div>
     </div>
   );
 }
